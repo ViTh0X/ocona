@@ -195,20 +195,22 @@
                 </table>
             </div>
             <div class="tabla_resumen">
-                <h2 class="no-margin">Familiar Relacionado:</h2>
+                <h2 class="no-margin">Familiares Relacionado:</h2>
                 <hr class="no-margin">
                 <table class="tabla_pequeña">
                     <thead>
                         <tr>
                             <th>ApellidosNombre</th>
                             <th>Tipo</th>
+                            <th>¿Socio?</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for personas in personas_asociadas %}
                         <tr>                            
-                            <td >{{ personas }}</td>
-                            <td >{{ personas.tipo_familiar }}</td>
+                            <td>{{ personas }}</td>
+                            <td>{{ personas.tipo_familiar }}</td>
+                            <td>{{ personas.es_socio }}</td>                            
                         </tr>
                         {% endfor %}
                     </tbody>

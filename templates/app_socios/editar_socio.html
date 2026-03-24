@@ -168,16 +168,19 @@
                 <h2 class="no-margin">Personas Asociadas:</h2>
                 <hr class="no-margin">
                 <table class="tabla_pequeña">
-                    <!--<thead>
+                    <thead>
                         <tr>
-                            <th>CodigoSocio</th>
-                            <th>Huerto</th>
+                            <th>ApellidosNombre</th>
+                            <th>Tipo</th>
+                            <th>¿Socio?</th>
                         </tr>
-                    </thead>-->
+                    </thead>
                     <tbody>
                         {% for personas in personas_asociadas %}
                         <tr>                            
-                            <td class="decoracion_texto">{{ personas }}</td>
+                            <td>{{ personas }}</td>
+                            <td >{{ personas.tipo_familiar }}</td>
+                            <td>{{ personas.es_socio }}</td>                            
                         </tr>
                         {% endfor %}
                     </tbody>
