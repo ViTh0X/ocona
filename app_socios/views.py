@@ -96,11 +96,14 @@ def seleccionar_no_socio_familiar(request):
         nombre_familiar = request.POST.get('nombre_familiar')
         es_socio_txt = request.POST.get('es_socio_texto')
         dni = request.POST.get('dni_familiar')
-        fecha_nacimiento = request.POST.get('fecha_nacimiento_familiar')
+        fecha_nacimiento = request.POST.get('fecha_nacimiento_familiar')        
         try:
             fecha_nacimiento = datetime.strptime(fecha_nacimiento, '%Y-%m-%d')
         except (ValueError, TypeError):
             fecha_nacimiento = fecha_nacimiento        
+        socio_repetido = PersonasRelacionadasSocio.objects.get(dni=dni)
+        if socio_repetido:
+            return HttpResponse("Error: Esta persona ya esta agregada como familiar")
         try:
             tipo_f = TipoFamiliar.objects.get(pk=int(tipo_id))
             
@@ -146,7 +149,9 @@ def seleccionar_socio_familiar(request,pk):
     if request.method == 'POST':
         tipo_id = request.POST.get('tipo_familiar')
         es_socio_txt = request.POST.get('es_socio_texto')
-        
+        socio_repetido = PersonasRelacionadasSocio.objects.get(dni=familiar_socio.dni)
+        if socio_repetido:
+            return HttpResponse("Error: Esta persona ya esta agregada como familiar")
         try:
             tipo_f = TipoFamiliar.objects.get(pk=int(tipo_id))
             
