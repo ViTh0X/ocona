@@ -3,13 +3,26 @@
     {% csrf_token %}
 
     <input class="input_anchos" type="hidden" name="id_socio" value="{{ socio_principal.id }}">
-
-    <label>Nombre Socio:</label>
-    <input class="input_anchos" type="text" readonly value="{{ socio_principal.apellidos }}, {{ socio_principal.nombres }}">
-
-    <label>Familiar Socio Seleccionado:</label>
-    <input class="input_anchos" type="text" readonly value="{{ familiar_socio.apellidos }}, {{ familiar_socio.nombres }}">
-
+    <div class="informacion_labels_input ancho_65rem">
+        <label>Nombre Socio:</label>
+        <input class="" type="text" readonly value="{{ socio_principal.apellidos }}, {{ socio_principal.nombres }}">
+    </div>    
+    <div class="informacion_labels_input ancho_45rem">
+        <label>Apellidos Familiar:</label>
+        <input class="" type="text" readonly value="{{ familiar_socio.apellidos }}">
+    </div>
+    <div class="informacion_labels_input ancho_45rem">
+        <label>Nombres Familiar:</label>
+        <input class="" type="text" readonly value="{{ familiar_socio.nombres }}">
+    </div>       
+    <div class="informacion_labels_input ancho_25rem">
+        <label>DNI:</label>
+        <input class="" type="text" readonly value="{{ familiar_socio.dni }}">
+    </div>
+    <div class="informacion_labels_input ancho_25rem">
+        <label>FechaNacimiento:</label>
+        <input class="" type="date" readonly value="{{ familiar_socio.fecha_nacimiento|date:'Y-m-d' }}">
+    </div>
     <label>Tipo Relación:</label>
     <select name="tipo_familiar" required>
         {% for tipo in tipos_familiar %}

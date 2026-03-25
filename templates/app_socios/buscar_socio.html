@@ -1,7 +1,16 @@
-<div class="formularios_pequeño" >            
+{% extends "../layout_irrigacion_ocoña.html" %}
+{% block titulo %}Familiares{% endblock  %}
+{% block contenido %}
+<h1>
+    <a href="{% url 'ver_detalles_socio' pk=socio.id %}">
+<-Volver a Socios
+</a>
+</h1>
+<div class="formularios_pequeño" id="fragmento_buscar_socio" >            
     <form method="POST">
-        <h2 class="no-margin">¿Buscar si el Familiar es Socio?</h2>
+        <h1 class="no-margin">¿Buscar si el Familiar es Socio?</h1>
         {% csrf_token %}            
+        <input type="hidden" id="id_socio_unico_input" name="id_socio" value="{{ socio.id }}">
         <div class="campos_textosimple">
             <input type="text" name="nombre" id="nombre_socio" placeholder='Nombre Socio'>
             <button type="button" hx-get="{% url 'encontrar_socios_familiares' %}" hx-target='#resultados_socios' hx-include='#nombre_socio'                
@@ -9,8 +18,14 @@
                 Buscar
             </button>
         </div>
-        <div class="items_al_medio" id="resultados_socios">            
+        <div class="items_al_medio" >
+            <table id="resultados_socios">
+                <tbody>
+
+                </tbody>
+            </table>            
         </div>        
     </form>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 </div>    
+{% endblock  %}

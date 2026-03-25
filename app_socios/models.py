@@ -117,7 +117,9 @@ class PersonasRelacionadasSocio(models.Model):
     socio_asociado = models.ForeignKey(Socios,on_delete=models.CASCADE)
     denominacion = models.CharField(max_length=40)
     tipo_familiar = models.ForeignKey(TipoFamiliar,on_delete=models.CASCADE,blank=True,null=True)
-    es_socio = models.CharField(max_length=10)    
+    es_socio = models.CharField(max_length=10)
+    dni = models.CharField(max_length=12)    
+    fecha_nacimiento = models.DateField(null=True,blank=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
     
     class Meta:

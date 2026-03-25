@@ -1,17 +1,27 @@
 <form hx-post="{% url 'seleccionar_no_socio_familiar' %}" 
       hx-target="#fragmento_buscar_socio" class="estilo_formularios">
     {% csrf_token %}
-    <input class="input_anchos" type="hidden" name="id_socio" value="{{ socio_principal.id }}">
-
-    <label>Nombre Socio Principal:</label>
-    <input class="input_anchos" type="text" readonly value="{{ socio_principal.apellidos }}, {{ socio_principal.nombres }}">
-
-    <label>Apellidos Familiar:</label>
-    <input class="input_anchos" type="text" name="apellido_familiar">
-
-    <label>Nombres Familiar:</label>
-    <input class="input_anchos" type="text" name="nombre_familiar">
-
+    <input class="" type="hidden" name="id_socio" value="{{ socio_principal.id }}">
+    <div class="informacion_labels_input ancho_65rem">
+        <label>Nombre Socio:</label>
+        <input class="" type="text" readonly value="{{ socio_principal.apellidos }}, {{ socio_principal.nombres }}">
+    </div>    
+    <div class="informacion_labels_input ancho_45rem">
+        <label>Apellidos Familiar:</label>
+        <input class="" type="text" name="apellido_familiar">
+    </div>    
+    <div class="informacion_labels_input ancho_45rem">
+        <label>Nombres Familiar:</label>
+        <input class="" type="text" name="nombre_familiar">
+    </div>    
+    <div class="informacion_labels_input ancho_25rem">
+        <label>DNI:</label>
+        <input class="" type="text" name="dni_familiar">
+    </div>
+    <div class="informacion_labels_input ancho_25rem">
+        <label>FechaNacimiento:</label>
+        <input class="" type="date" name="fecha_nacimiento_familiar">
+    </div>
     <label>Tipo Relación:</label>
     <select name="tipo_familiar" required>
         {% for tipo in tipos_familiar %}

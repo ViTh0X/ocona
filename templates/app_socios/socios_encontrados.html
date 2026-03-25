@@ -8,7 +8,7 @@
             -{{ socio.apellidos }}, {{ socio.nombres }}
         </a>
     </td> 
-</tr>    
+</tr>  
 {% empty %}
 <tr class="backgroud_blanco">
     <td class="columna_busca_proveedor" style="padding: 2rem; text-align: center;">
@@ -17,9 +17,22 @@
             hx-swap="innerHTML"
             hx-include="#id_socio_unico_input">
         <strong style="font-size: 2rem; color: #d21919; display: block;">
-            ⚠️ El familiar no es socio, Click para agregar Familiar</a>
+            ⚠️ El familiar no es socio, Click aqui para agregar Familiar</a>
         </strong>
     </td> 
 </tr>
 <script src="https://unpkg.com/htmx.org@1.9.10"></script>    
 {% endfor %}
+{% if socios|length > 0 %}
+<tr class="backgroud_blanco">
+    <td class="columna_busca_proveedor" style="padding: 2rem; text-align: center;">
+        <a hx-get="{% url 'seleccionar_no_socio_familiar' %}"         
+            hx-target="#fragmento_buscar_socio"
+            hx-swap="innerHTML"
+            hx-include="#id_socio_unico_input">
+        <strong style="font-size: 2rem; color: #d21919; display: block;">
+            ⚠️ En caso no es Socio, Click aqui para agregar Familiar</a>
+        </strong>
+    </td> 
+</tr>  
+{% endif %}

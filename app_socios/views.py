@@ -11,6 +11,8 @@ from django.db.models import IntegerField
 from django.db.models.functions import Cast
 # Create your views here.
 
+from datetime import datetime
+
 def socios(request):
     socios = Socios.objects.all()[:15]    
     cantidad_socios = Socios.objects.all().count()
@@ -60,8 +62,9 @@ def editar_socio(request,pk):
         form = SocioFormulario(instance=socio)
     return render(request,'app_socios/editar_socio.html',{'form':form,'huertos_socio':huertos_socio,'parcelas_socio':parcelas_socio,'codigos_asociados':codigos_asociados,'personas_asociadas':personas_asociadas})
 
-def buscar_socio(request):
-    return render(request,'app_socios/buscar_socio.html')
+def buscar_socio(request,pk):
+    socio = Socios.objects.get(pk=pk)
+    return render(request,'app_socios/buscar_socio.html',{'socio':socio})
 
 def encontrar_socios_familiares(request):
     pista_socio = request.GET.get('nombre', '').strip()    
@@ -91,7 +94,13 @@ def seleccionar_no_socio_familiar(request):
         tipo_id = request.POST.get('tipo_familiar')
         apellido_familiar = request.POST.get('apellido_familiar')
         nombre_familiar = request.POST.get('nombre_familiar')
-        es_socio_txt = request.POST.get('es_socio_texto')        
+        es_socio_txt = request.POST.get('es_socio_texto')
+        dni = request.POST.get('dni_familiar')
+        fecha_nacimiento = request.POST.get('fecha_nacimiento_familiar')
+        try:
+            fecha_nacimiento = datetime.strptime(fecha_nacimiento, '%Y-%m-%d')
+        except (ValueError, TypeError):
+            fecha_nacimiento = fecha_nacimiento        
         try:
             tipo_f = TipoFamiliar.objects.get(pk=int(tipo_id))
             
@@ -100,7 +109,9 @@ def seleccionar_no_socio_familiar(request):
                 socio_asociado=socio_principal,
                 denominacion=f"{apellido_familiar}, {nombre_familiar}",
                 tipo_familiar=tipo_f,
-                es_socio=es_socio_txt
+                es_socio=es_socio_txt,
+                dni=dni,
+                fecha_nacimiento=fecha_nacimiento
             )
             
             # MAGIA PARA HTMX: 
@@ -144,7 +155,9 @@ def seleccionar_socio_familiar(request,pk):
                 socio_asociado=socio_principal,
                 denominacion=f"{familiar_socio.apellidos}, {familiar_socio.nombres}",
                 tipo_familiar=tipo_f,
-                es_socio=es_socio_txt
+                es_socio=es_socio_txt,
+                dni=familiar_socio.dni,
+                fecha_nacimiento=familiar_socio.fecha_nacimiento
             )
             
             # MAGIA PARA HTMX: 
@@ -164,3 +177,13 @@ def seleccionar_socio_familiar(request,pk):
         'familiar_socio': familiar_socio,
         'socio_principal': socio_principal
     })
+
+def agregar_socio(request):
+    if request.method == 'POST':
+        form = SocioFormulario(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('socios')
+    else:
+        form = SocioFormulario()        
+    return render(request,'app_socios/form_agregar_socio.html',{'form':form})
