@@ -64,6 +64,10 @@
         <div class="data_label">
             <div class="informacion_labels">
                 <div class="mostrar_info_estilo">
+                    <label for="">N°Folio:</label>
+                    <label for="">{{ socio.codigo_folio }}</label>
+                </div>
+                <div class="mostrar_info_estilo">
                     <label class="texto_negrita" for="">ID:</label>
                     <label for="" id="id_socio_unico" >{{ socio.id }}</label>
                     <input type="hidden" id="id_socio_unico_input" name="id_socio" value="{{ socio.id }}">
@@ -171,13 +175,7 @@
                 hx-target="#fragmento_buscar_socio"
                 >Agregar Familiares</a>                 
             </div>                        
-        </div>
-        <div id="fragmento_buscar_socio" class="tabla_resumen items_al_medio">
-            <table class="tabla_pequeña" style="width: 100%;">
-                <tbody id="resultados_socios">
-                    </tbody>
-            </table>
-        </div> 
+        </div>        
         <div class="data_cuadros">
             <div class="tabla_resumen">
                 <h2 class="no-margin">Huertos Adquiridos:</h2>
@@ -261,6 +259,12 @@
                 </table>
             </div>            
         </div>
+        <div id="fragmento_buscar_socio" class="tabla_resumen items_al_medio">
+            <table class="tabla_pequeña" style="width: 100%;">
+                <tbody id="resultados_socios">
+                    </tbody>
+            </table>
+        </div> 
     </div>
     </div> 
 </div>

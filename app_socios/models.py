@@ -1,4 +1,6 @@
 from encodings.punycode import T
+import re
+from tkinter.messagebox import RETRY
 from turtle import mode
 
 from django.db import models
@@ -38,8 +40,20 @@ class TipoEstadosCivil(models.Model):
     def __str__(self):
         return self.denominacion
 
+class CodigoFolio(models.Model):
+    id = models.AutoField(primary_key=True)
+    fecha_modificacion = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'codigo_folio'
+        
+    def __str__(self):
+        return f"{self.id}"
+
+
 class Socios(models.Model):
-    id = models.AutoField(primary_key=True)        
+    id = models.AutoField(primary_key=True)
+    codigo_folio = models.ForeignKey(CodigoFolio,on_delete=models.CASCADE,blank=True,null=True)        
     tipo_socio = models.ForeignKey(TipoSocio,on_delete=models.CASCADE)    
     nombres = models.CharField(max_length=120,blank=True,null=True)
     apellidos = models.CharField(max_length=120,blank=True,null=True)
@@ -61,9 +75,8 @@ class Socios(models.Model):
     centro_trabajo = models.CharField(max_length=100,null=True,blank=True)
     grado_instruccion = models.CharField(max_length=50,null=True,blank=True)
     correo = models.CharField(max_length=100,null=True,blank=True)
-    numero_contacto_adicional = models.CharField(max_length=50,null=True,blank=True)
-    
-    #fin de nuevos
+    numero_contacto_adicional = models.CharField(max_length=50,null=True,blank=True)    
+    #fin de nuevos    
     
     fecha_modificacion = models.DateTimeField(auto_now=True,blank=True,null=True)
     
