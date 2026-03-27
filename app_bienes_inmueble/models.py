@@ -15,18 +15,6 @@ class TipoInmueble(models.Model):
     def __str__(self):
         return self.denominacion
     
-'''class TipoTransferencias(models.Model):
-    id = models.AutoField(primary_key=True)
-    denominacion = models.CharField(max_length=30)
-    fecha_modificacion = models.DateTimeField(auto_now=True)
-    
-    class Meta: 
-        
-        db_table ='tipo_transferencias'        
-    
-    def __str__(self):
-        return self.denominacion'''
- 
 
 class TipoEnlaceSocio(models.Model):
     id = models.AutoField(primary_key=True)

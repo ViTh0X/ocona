@@ -1,4 +1,5 @@
 from encodings.punycode import T
+from pyexpat import model
 import re
 from tkinter.messagebox import RETRY
 from turtle import mode
@@ -40,7 +41,7 @@ class TipoEstadosCivil(models.Model):
     def __str__(self):
         return self.denominacion
 
-class CodigoFolio(models.Model):
+'''class CodigoFolio(models.Model):
     id = models.AutoField(primary_key=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
     
@@ -48,12 +49,23 @@ class CodigoFolio(models.Model):
         db_table = 'codigo_folio'
         
     def __str__(self):
-        return f"{self.id}"
+        return f"{self.id}"'''
+        
+class EstadosSocio(models.Model):
+    id = models.AutoField(primary_key=True)
+    denominacion = models.CharField(max_length=15)
+    fecha_modificacion = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'estados_socio'
+
+    def __str__(self):
+        return self.denominacion
 
 
 class Socios(models.Model):
     id = models.AutoField(primary_key=True)
-    codigo_folio = models.ForeignKey(CodigoFolio,on_delete=models.CASCADE,blank=True,null=True)        
+    codigo_folio = models.IntegerField(blank=True,null=True)        
     tipo_socio = models.ForeignKey(TipoSocio,on_delete=models.CASCADE)    
     nombres = models.CharField(max_length=120,blank=True,null=True)
     apellidos = models.CharField(max_length=120,blank=True,null=True)
@@ -75,7 +87,8 @@ class Socios(models.Model):
     centro_trabajo = models.CharField(max_length=100,null=True,blank=True)
     grado_instruccion = models.CharField(max_length=50,null=True,blank=True)
     correo = models.CharField(max_length=100,null=True,blank=True)
-    numero_contacto_adicional = models.CharField(max_length=50,null=True,blank=True)    
+    numero_contacto_adicional = models.CharField(max_length=50,null=True,blank=True) 
+    estado_actual_socio = models.ForeignKey(EstadosSocio,on_delete=models.CASCADE,blank=True,null=True)
     #fin de nuevos    
     
     fecha_modificacion = models.DateTimeField(auto_now=True,blank=True,null=True)
