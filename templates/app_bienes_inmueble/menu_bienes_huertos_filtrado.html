@@ -1,11 +1,12 @@
 <table class="tabla_contenido">
     <thead>
         <tr>                                                            
-            <th>NombreHuerto</th>                                        
-            <th>Socio Relacionado</th>
+            <th>ID</th>                                                      
+            <th>MZ</th>                                        
+            <th>Lote</th>
             <th>DNI Socio</th>
-            <th>Codigo Socio</th>                    
-            <th>Personas Relacionado</th>
+            <th>Socio</th>
+            <th>En Calidad de</th>                                        
             <th>Detalles</th>
             <th></th>
         </tr>
@@ -13,19 +14,12 @@
     <tbody>
         {% for huerto in huertos %}                
         <tr>
-            <td>{{ huerto.id }}-{{ huerto.nombre }}</td>
-            <td>{{ huerto.socio_relacionado.apellidos }}, {{ huerto.socio_relacionado.nombres }}</td>                    
-            <td>{{ huerto.socio_relacionado.dni }}</td>                                        
-            <td>{{ huerto.codigo_socio_asociado }}</td>
-            <td>
-                <ul>
-                    {% for persona in personas_relacionadas_huerto %}
-                    {% if huerto.socio_relacionado.id == persona.socio_asociado.id %}
-                    <li>{{ persona }}</li>                            
-                    {% endif %}
-                    {% endfor %}
-                </ul>
-            </td>
+            <td>{{ huerto.id }}</td>
+            <td>{{ huerto.manzana }}</td>
+            <td>{{ huerto.lote }}</td>
+            <td>{{ huerto.socio_poseedor_actual.dni }}</td>
+            <td>{{ huerto.socio_poseedor_actual.apellidos }}, {{ huerto.socio_poseedor_actual.nombres }}</td>                                                                                
+            <td>{{ huerto.tipo_enlace_socio }}</td>              
             <td class="aling-center"> 
                 <a href="{% url 'detalles_huertos' pk=huerto.id %}">
                     <svg

@@ -1,0 +1,126 @@
+{% extends "../layout_irrigacion_ocoña.html" %}
+{% block titulo %}Socios{% endblock  %}
+{% block contenido %}
+<div class="contenedor_principal_informacion">
+    <form method="POST">
+        {% csrf_token %}    
+    <div class="opciones_principal">        
+        <div class="botones_enlaces">
+            <a href="{% url 'menu_transferencias'%}">                
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="50"
+                height="50"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#047670"
+                stroke-width="1.25"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                >
+                <path d="M16 21h3c.81 0 1.48 -.67 1.48 -1.48l.02 -.02c0 -.82 -.69 -1.5 -1.5 -1.5h-3v3z" />
+                <path d="M16 15h2.5c.84 -.01 1.5 .66 1.5 1.5s-.66 1.5 -1.5 1.5h-2.5v-3z" />
+                <path d="M4 9v-4c0 -1.036 .895 -2 2 -2s2 .964 2 2v4" />
+                <path d="M2.99 11.98a9 9 0 0 0 9 9m9 -9a9 9 0 0 0 -9 -9" />
+                <path d="M8 7h-4" />
+                </svg>                
+            </a> 
+            <button class="boton_guardar" type="submit">
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="50"
+                height="50"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#02264d"
+                stroke-width="2.25"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                >
+                <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
+                <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                <path d="M14 4l0 4l-6 0l0 -4" />
+                </svg>
+            </button>
+            <a href="{% url 'home_irrigacion_ocoña' %}">
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="50"
+                height="50"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#d21919"
+                stroke-width="2.25"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                >
+                <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+                <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                <path d="M10 12h4v4h-4z" />
+                </svg>
+            </a>
+        </div>
+    </div>   
+    <div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" style="color: red; font-weight: bold;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="data_label">
+            <div class="informacion_labels_input informacion_labels_select">
+                <label class="texto_negrita" for="">Numero Folio:</label>
+                <input type="number" id='numero_folio' name='numero_folio'>
+                <label class="texto_negrita" for="">Fecha Transferencia:</label>
+                <input type="date" id='fecha_transferencia' name='fecha_transferencia'>
+                <label class="texto_negrita" for="">Codigo Transferencia:</label>
+                <input type="number" id='codigo_transferencia' name='codigo_transferencia'>
+            </div>          
+            <div class="informacion_labels_input informacion_labels_select">
+                <div id="contenedor-transferente" class="">
+                    <label class="texto_negrita" for="">Transferentes:</label>
+                    <div class="">
+                        <label for="">DNI:</label>
+                        <input id='dni_transferente' name='dni_transferente' placeholder='Ejm:73206012'>                                            
+                        <label for="">Apellidos:</label>
+                        <input id='apellidos_transferente' name='apellidos_transferente' value="{{persona.apellidos }}" placeholder='Ejm:QUISPE'>
+                        <label for="">Nombres:</label>
+                        <input id='nombres_transferente' name='nombres_transferente' value="{{persona.nombres }}" placeholder='Ejm:LEONARD'>                                            
+                        <button hx-get="{% url 'mas_transferentes' %}" 
+                            hx-target="#contenedor-transferente"                             
+                            hx-swap="beforeend"                             
+                            type="button" class="botones">
+                        + Añadir Otro
+                        </button>                                            
+                    </div>                        
+                </div><!--Fin Transferente -->
+                <div id="contenedor-transferido" class="">
+                    <label class="texto_negrita" for="">Transferidos:</label>
+                    <div class="">
+                        <label for="">DNI:</label>
+                        <input id='dni_transferido' name='dni_transferido' placeholder='Ejm:73206012'>
+                        <label for="">Apellidos:</label>
+                        <input id='apellidos_transferido' name='apellidos_transferido' value="{{persona.apellidos }}" placeholder='Ejm:QUISPE'>
+                        <label for="">Nombres:</label>
+                        <input id='nombres_transferido' name='nombres_transferido' value="{{persona.nombres }}" placeholder='Ejm:LEONARD'>                                            
+                        <button hx-get="{% url 'mas_transferidos' %}" 
+                            hx-target="#contenedor-transferido" 
+                            hx-swap="beforeend"                             
+                            type="button" class="botones">
+                        + Añadir Otro
+                        </button>                                            
+                    </div>                        
+                </div><!--Fin Transferido-->  
+            </div><!--Fin transferente y transferido-->
+            <div class="informacion_labels_input informacion_labels_select ancho_65rem">
+                <label class="texto_negrita" for="">Observaciones:</label>
+                <input type="text" id='observaciones' name='observaciones'>                
+            </div>                                                                  
+        </div>      
+    </div>
+    </div> 
+    </form>
+</div>
+{% endblock  %}

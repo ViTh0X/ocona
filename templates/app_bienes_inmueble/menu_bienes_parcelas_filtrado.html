@@ -1,12 +1,12 @@
 <table class="tabla_contenido">
     <thead>
         <tr> 
-            <th>ID</th>                                                           
-            <th>NombreParcela</th>                                        
-            <th>Socio Relacionado</th>
+            <th>ID</th>                                                      
+            <th>MZ</th>                                        
+            <th>Lote</th>
             <th>DNI Socio</th>
-            <th>Codigo Socio</th>                    
-            <th>Personas Relacionado</th>
+            <th>Socio</th>
+            <th>En Calidad de</th>                                        
             <th>Detalles</th>
             <th></th>
         </tr>
@@ -15,19 +15,11 @@
         {% for parcela in parcelas %}                
         <tr>
             <td>{{ parcela.id }}</td>
-            <td>{{ parcela.nombre }}</td>
-            <td>{{ parcela.socio_relacionado.apellidos }}, {{ parcela.socio_relacionado.nombres }}</td>
-            <td>{{ parcela.socio_relacionado.dni }}</td>                                        
-            <td>{{ parcela.codigo_socio_asociado }}</td>                                    
-            <td>
-                <ul>
-                    {% for persona in personas_relacionadas_parcela %}
-                    {% if parcela.socio_relacionado.id == persona.socio_asociado.id %}
-                    <li>{{ persona }}</li>                            
-                    {% endif %}
-                    {% endfor %}
-                </ul>                        
-            </td>
+            <td>{{ parcela.manzana }}</td>
+            <td>{{ parcela.lote }}</td>
+            <td>{{ parcela.socio_poseedor_actual.dni }}</td>
+            <td>{{ parcela.socio_poseedor_actual.apellidos }}, {{ parcela.socio_poseedor_actual.nombres }}</td>                                                                                
+            <td>{{ parcela.tipo_enlace_socio }}</td>
             <td>
                 <a href="{% url 'detalles_parcelas' pk=parcela.id %}">
                     <svg

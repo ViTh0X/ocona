@@ -22,5 +22,6 @@ urlpatterns = [
     path('',include('app_home.urls')),
     path('socios/',include('app_socios.urls')),
     path('bienes-inmuebles/',include('app_bienes_inmueble.urls')),
+    path('transferencias/',include('app_transferencias.urls')),
     
 ]

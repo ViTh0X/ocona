@@ -36,7 +36,7 @@
                 <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
                 <path d="M13.5 6.5l4 4" />
                 </svg>
-            </a>
+            </a>            
             <a href="{% url 'home_irrigacion_ocoña' %}">
                 <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -56,35 +56,65 @@
             </a>
         </div>
     </div>   
-    <div>
+    <div class="vista_mostrar_informacion_inmuebles">
         <div class="data_label">
             <div class="informacion_labels">
                 <label class="texto_negrita" for="">ID:</label>
                 <label for="">{{ parcela.id }}</label>
+            </div>
+            <div class="informacion_labels">
+                <label class="texto_negrita" for="">MZ: </label>
+                <label for="">{{ parcela.manzana }}</label>
             </div> 
             <div class="informacion_labels">
                 <label class="texto_negrita" for="">Nombre:</label>
-                <label for="">{{ parcela.nombre }}</label>
+                <label for="">{{ parcela.lote }}</label>
             </div> 
             <div class="informacion_labels">
-                <label class="texto_negrita" for="">Socio:</label>
-                <label for="">{{ parcela.socio_relacionado.apellidos }}, {{ parcela.socio_relacionado.nombres }}</label>
+                <label class="texto_negrita" for="">DNI-Socio: </label>
+                <label for="">{{ parcela.socio_relacionado.dni }}</label>
             </div>            
             <div class="informacion_labels">
-                <label class="texto_negrita" for="">Codigo Socio:</label>
-                <label for="">{{ parcela.codigo_socio_asociado }}</label>
-            </div>            
-            <div class="informacion_labels"> 
-                <label class="texto_negrita" for="">Personas Relacionadas:</label>
-                <ul>
-                    {% for persona in personas_relacionadas %}
-                    <label for="" class="display_flex">°{{ persona }}</label>
-                    {% empty %}
-                    <label for="">No tiene personas Relacionadas</label>
-                    {% endfor %}
-                </ul>                
-            </div>                        
-        </div>        
+                <label class="texto_negrita" for="">Persona Poseedor: </label>
+                <label for="">{{ parcela.socio_relacionado.apellidos }}, {{ parcela.socio_relacionado.nombres }}</label>
+            </div>                             
+        </div>
+        <div class="data_cuadros"> 
+            <div class="tabla_resumen_padre_transac">                
+                <h2 class="no-margin">Historial Transacciones:</h2>
+                <hr class="no-margin">
+                <div class="tabla_resumen_transac">
+                    <table class="tabla_pequeña">
+                        <thead>
+                            <tr>
+                                <th>Doc</th>
+                                <th>H-MZ</th>
+                                <th>H-L</th>
+                                <th>Transferente</th>
+                                <th>Transferido</th>
+                                <th>FechaTransferencia</th>
+                                <th>CodigoAsociado</th>
+                                <th>Observaciones</th>                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for transferencia in transferencias %}
+                            <tr>                            
+                                <td>{{ transferencia.codigo_documento }}</td>
+                                <td>{{ transferencia.inmueble_huerto.manzana }}</td>
+                                <td>{{ transferencia.inmueble_huerto.lote }}</td>
+                                <td>{{ transferencia.socio_transferente }}</td>
+                                <td>{{ transferencia.socio_transferido }}</td>
+                                <td>{{ transferencia.fecha_transferencia|date:"Y-m-d" }}</td>                            
+                                <td>{{ transferencia.codigo_relacionado_transferencia }}</td>
+                                <td>{{ transferencia.observaciones|default:"Sin Observaciones" }}</td>
+                            </tr>                            
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>                                
+            </div>
+        </div>                    
         </div>
     </div>    
 </div>

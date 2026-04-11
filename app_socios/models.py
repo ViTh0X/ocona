@@ -40,16 +40,6 @@ class TipoEstadosCivil(models.Model):
 
     def __str__(self):
         return self.denominacion
-
-'''class CodigoFolio(models.Model):
-    id = models.AutoField(primary_key=True)
-    fecha_modificacion = models.DateTimeField(auto_now=True)
-    
-    class Meta:
-        db_table = 'codigo_folio'
-        
-    def __str__(self):
-        return f"{self.id}"'''
         
 class EstadosSocio(models.Model):
     id = models.AutoField(primary_key=True)
@@ -66,9 +56,9 @@ class EstadosSocio(models.Model):
 class Socios(models.Model):
     id = models.AutoField(primary_key=True)
     codigo_folio = models.IntegerField(blank=True,null=True)        
-    tipo_socio = models.ForeignKey(TipoSocio,on_delete=models.CASCADE)    
-    nombres = models.CharField(max_length=120,blank=True,null=True)
-    apellidos = models.CharField(max_length=120,blank=True,null=True)
+    tipo_socio = models.ForeignKey(TipoSocio,on_delete=models.CASCADE,blank=True,null=True)    
+    apellidos = models.CharField(max_length=120)
+    nombres = models.CharField(max_length=120)    
     dni = models.CharField(max_length=12,blank=True,null=True)
     sexo =  models.ForeignKey(TipoSexos,on_delete=models.CASCADE,blank=True,null=True)
     domicilio = models.CharField(max_length=180,blank=True,null=True)
@@ -87,7 +77,8 @@ class Socios(models.Model):
     centro_trabajo = models.CharField(max_length=100,null=True,blank=True)
     grado_instruccion = models.CharField(max_length=50,null=True,blank=True)
     correo = models.CharField(max_length=100,null=True,blank=True)
-    numero_contacto_adicional = models.CharField(max_length=50,null=True,blank=True) 
+    numero_contacto_adicional = models.CharField(max_length=50,null=True,blank=True)
+    activo_hasta = models.DateField(null=True,blank=True) 
     estado_actual_socio = models.ForeignKey(EstadosSocio,on_delete=models.CASCADE,blank=True,null=True)
     #fin de nuevos    
     
@@ -97,7 +88,7 @@ class Socios(models.Model):
         db_table = 'socios'
         
     def __str__(self):
-        return f"{self.apellidos} {self.nombres}"
+        return f"{self.apellidos}, {self.nombres}"
 
 
 class TipoFamiliar(models.Model):
@@ -122,16 +113,20 @@ class CodigosAsociadosSocio(models.Model):
         db_table = 'codigos_asociados_socio'
         
     def __str__(self):
-        return self.codigo
+        if self.codigo == '':
+            return "SinCodigo"    
+        else:
+            return self.codigo
     
     
 class PersonasRelacionadasSocio(models.Model):
     id = models.AutoField(primary_key=True)
     socio_asociado = models.ForeignKey(Socios,on_delete=models.CASCADE)
-    denominacion = models.CharField(max_length=40)
+    apellidos = models.CharField(max_length=40)
+    nombres = models.CharField(max_length=40)
     tipo_familiar = models.ForeignKey(TipoFamiliar,on_delete=models.CASCADE,blank=True,null=True)
-    es_socio = models.CharField(max_length=10)
-    dni = models.CharField(max_length=12)    
+    es_socio = models.CharField(max_length=10,null=True,blank=True)
+    dni = models.CharField(max_length=12,null=True,blank=True)    
     fecha_nacimiento = models.DateField(null=True,blank=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
     
@@ -139,5 +134,5 @@ class PersonasRelacionadasSocio(models.Model):
         db_table = 'personas_relacionadas_socio'
         
     def __str__(self):
-        return self.denominacion
+        return f"{self.apellidos}, {self.nombres}"
 

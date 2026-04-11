@@ -34,7 +34,7 @@
                 <label for="">Buscar por DNI:</label>
                 <input type="text" placeholder="INGRESE DNI" id="pista_dni" name="dni" >
             </div>            
-            <button hx-get="{% url 'filtrar_socios_nombre' %}" 
+            <button hx-get="{% url 'filtrar_socios_dni' %}" 
             hx-target="#listado_socios" 
             hx-include="#pista_dni"
             hx-indicator="#loading-spinner">

@@ -1,6 +1,7 @@
 :root{
     --colorPrincipal:#02264d;
     --colorSecundario:#44C730;
+    --violeta:#8800ff;
     --verdeOscuro:#22caa0;
     --blanco: #fff;
     --oscuro: #000;
@@ -242,6 +243,26 @@ h1{
 .botones_enlaces_add:hover{
     cursor: pointer;
 }
+.botones_enlaces_add2{
+    background-color: var(--violeta);
+    text-decoration: none;
+    padding: 0.8rem;
+    color: var(--blanco);
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 2rem;
+    width: 25rem;
+    border-radius: 0.5rem;
+    border: 0.1rem solid var(--blanco);
+}
+.botones_enlaces_add2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.botones_enlaces_add2:hover{
+    cursor: pointer;
+}
 .botones_enlaces a{
     text-decoration: none;
     font-size: 2.5rem;
@@ -326,7 +347,7 @@ h1{
 
 .data_cuadros{
     display: grid;
-    grid-template-columns: 1fr 1fr;    
+    grid-template-columns: 1fr;    
     background-color: var(--blanco);
     column-gap: 2rem;    
 }
@@ -349,6 +370,9 @@ h1{
     justify-content: start;
     height: 10rem;
 }
+.tabla_resumen_padre_transac{
+    height: 25rem;
+}
 .tabla_resumen{
     font-size: 2.5rem;
     text-align: center;
@@ -357,7 +381,14 @@ h1{
     overflow-y: auto;     /* Activa el scroll vertical si el contenido se pasa */
     overflow-x: hidden;
 }
-
+.tabla_resumen_transac{
+    font-size: 2.5rem;
+    text-align: center;
+    margin-left: 1rem;
+    max-height: 50rem;    /* Ajusta la altura máxima a tu gusto */
+    overflow-y: auto;     /* Activa el scroll vertical si el contenido se pasa */
+    overflow-x: hidden;    
+}
 .aling-center{
     text-align: center;
 }
@@ -480,9 +511,17 @@ h1{
     display: grid;
     grid-template-columns: 55% 45%;
 }
+.vista_mostrar_informacion_inmuebles{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;    
+}
 .columna_busca_proveedor{
     font-size: 4rem;
 }
 .columna_busca_proveedor:hover{
     background-color: var(--colorSecundario);
+}
+.display_inline{
+    display: inline;
 }

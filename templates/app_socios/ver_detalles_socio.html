@@ -64,7 +64,7 @@
         <div class="data_label">
             <div class="informacion_labels">
                 <div class="mostrar_info_estilo">
-                    <label for="">EstadoSocio:</label>
+                    <label for="">EstadoActualSocio:</label>
                     <label for="">{{ socio.estado_actual_socio }}</label>
                 </div>
                 <div class="mostrar_info_estilo">
@@ -174,9 +174,15 @@
                     <label class="texto_negrita" for="">☎Tel. Adicional:</label>
                     <label for="">{{ socio.numero_contacto_adicional|default:"No Ingresado" }}</label>
                 </div>                                
+            </div>
+            <div class="informacion_labels mostrar_info_estilo">                
+                <div class="mostrar_info_estilo">
+                    <label class="texto_negrita" for="">Activo Hasta:</label>
+                    <label for="">{{ socio.activo_hasta|default:"No Ingresado" }}</label>
+                </div>                                                           
             </div>                 
             <a class="botones_enlaces_add"
-            href="{% url 'buscar_socio' pk=socio.id %}">Agregar Familiares</a>                     
+            href="{% url 'buscar_socio' pk=socio.id %}">Agregar Familiares</a>
         </div>        
         <div class="data_cuadros">            
             <div class="tabla_resumen_padre">                
@@ -199,28 +205,28 @@
                                 <td>{{ personas.tipo_familiar }}</td>
                                 <td>{{ personas.dni }}</td>
                                 <td>{{ personas.es_socio }}</td>                            
-                            </tr>
+                            </tr>                            
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>                                
             </div>
             <div class="altura10rem">
-                <h2 class="no-margin">Huertos Adquiridos:</h2>
+                <h2 class="no-margin">Huertos Actuales:</h2>
                 <hr class="no-margin">
                 <div class="tabla_resumen">                
                     <table class="tabla_pequeña">
                         <thead>
                             <tr>
-                                <th>CodigoSocio</th>
-                                <th>Huerto</th>
+                                <th>CH-MZ</th>
+                                <th>CH-L</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for huerto in huertos_socio %}
                             <tr>
-                                <td>{{ huerto.codigo_socio_asociado }}</td>
-                                <td>{{ huerto.nombre }}</td>
+                                <td>{{ huerto.manzana }}</td>
+                                <td>{{ huerto.lote }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -228,21 +234,21 @@
                 </div>
             </div>
             <div class="altura10rem">
-                <h2 class="no-margin">Parcelas Adquiridas:</h2>
+                <h2 class="no-margin">Parcelas Actuales:</h2>
                 <hr class="no-margin">
                 <div class="tabla_resumen">                
                 <table class="tabla_pequeña">
                     <thead>
                         <tr>
-                            <th>CodigoSocio</th>
-                            <th>Huerto</th>
+                            <th>CH-P</th>
+                            <th>L-P</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for parcela in parcelas_socio %}
                         <tr>
-                            <td>{{ parcela.codigo_socio_asociado }}</td>
-                            <td>{{ parcela.nombre }}</td>
+                            <td>{{ parcela.manzana }}</td>
+                            <td>{{ parcela.lote }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -252,13 +258,7 @@
             <div class="tabla_resumen">
                 <h2 class="no-margin">Historial Codigos Socio:</h2>
                 <hr class="no-margin">
-                <table class="tabla_pequeña">
-                    <!--<thead>
-                        <tr>
-                            <th>CodigoSocio</th>
-                            <th>Huerto</th>
-                        </tr>
-                    </thead>-->
+                <table class="tabla_pequeña">                    
                     <tbody>
                         {% for codigo in codigos_asociados %}
                         <tr>                            
@@ -267,14 +267,12 @@
                         {% endfor %}
                     </tbody>
                 </table>
-            </div>            
+            </div>
+            <div>
+                <a class="botones_enlaces_add2"
+                href="{% url 'transferencias_socio' pk=socio.id %}">Ver Transferencias</a>
+            </div>                                 
         </div>
-        <div id="fragmento_buscar_socio" class="tabla_resumen items_al_medio">
-            <table class="tabla_pequeña" style="width: 100%;">
-                <tbody id="resultados_socios">
-                    </tbody>
-            </table>
-        </div> 
     </div>
     </div> 
 </div>

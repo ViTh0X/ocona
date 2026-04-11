@@ -32,15 +32,16 @@ class TipoEnlaceSocio(models.Model):
 class Inmuebles(models.Model):
     id = models.AutoField(primary_key=True)
     tipo = models.ForeignKey(TipoInmueble,on_delete=models.CASCADE)
-    nombre = models.CharField(max_length=50)    
-    socio_relacionado = models.ForeignKey(Socios,on_delete=models.CASCADE)
-    codigo_socio_asociado = models.ForeignKey(CodigosAsociadosSocio,on_delete=models.CASCADE)
+    manzana = models.CharField(max_length=10)    
+    lote = models.CharField(max_length=10)    
+    socio_poseedor_actual = models.ForeignKey(Socios,on_delete=models.CASCADE,blank=True,null=True)    
     tipo_enlace_socio = models.ForeignKey(TipoEnlaceSocio,on_delete=models.CASCADE,blank=True,null=True)   
     fecha_modificacion = models.DateTimeField(auto_now=True)
     
     class Meta:
         db_table = 'inmuebles'
-        ordering = ['id']
+        ordering = ['manzana']
         
     def __str__(self):
-        return self.nombre
+        return f"{self.manzana}-{self.lote}"
+            

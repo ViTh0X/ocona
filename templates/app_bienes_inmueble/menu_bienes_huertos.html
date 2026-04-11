@@ -6,12 +6,16 @@
     <div class="opciones_principal">
         <div class="buscador">
             <div class="estilo_buscador">
-                <label for="">Buscar Huerto:</label>
-                <input type="text" placeholder="Ingrese Nombre" id="pista_huerto" name="huerto" >
+                <label for="">MZ:</label>
+                <input type="text" placeholder="Ingrese MZ" id="pista_mz" name="mz" >                
+            </div>            
+            <div class="estilo_buscador">
+                <label for="">Lote:</label>
+                <input type="text" placeholder="Ingrese Lote" id="pista_lote" name="lote" >                
             </div>            
             <button hx-get="{% url 'filtrar_huertos_nombres' %}" 
             hx-target="#listado_huertos" 
-            hx-include="#pista_huerto"
+            hx-include="#pista_mz,#pista_lote"
             hx-indicator="#loading-spinner">
                 <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +37,9 @@
             <label for="">N°Huertos:</label>            
             <label for="">{{ cantidad_huertos }}</label>
             <label for="">Total</label>            
-        </div>      
+        </div>
+        <a class="botones_enlaces_add"
+            href="{% url 'agregar_huerto' %}">Agregar Huerto</a>      
         <div class="botones_enlaces">
             <!--<a href="">+ Agregar Huerto</a>-->
             <a href="{% url 'home_irrigacion_ocoña' %}">
@@ -60,11 +66,11 @@
             <thead>
                 <tr>      
                     <th>ID</th>                                                      
-                    <th>NombreHuerto</th>                                        
-                    <th>Socio Relacionado</th>
+                    <th>MZ</th>                                        
+                    <th>Lote</th>
                     <th>DNI Socio</th>
-                    <th>Codigo Socio</th>                    
-                    <th>Personas Relacionado</th>
+                    <th>Socio</th>
+                    <th>En Calidad de</th>                                        
                     <th>Detalles</th>
                     <th></th>
                 </tr>
@@ -73,19 +79,11 @@
                 {% for huerto in huertos %}                
                 <tr>
                     <td>{{ huerto.id }}</td>
-                    <td>{{ huerto.nombre }}</td>
-                    <td>{{ huerto.socio_relacionado.apellidos }}, {{ huerto.socio_relacionado.nombres }}</td>                    
-                    <td>{{ huerto.socio_relacionado.dni }}</td>                                        
-                    <td>{{ huerto.codigo_socio_asociado }}</td>
-                    <td>
-                        <ul>
-                            {% for persona in personas_relacionadas_huerto %}
-                            {% if huerto.socio_relacionado.id == persona.socio_asociado.id %}
-                            <li>{{ persona }}</li>                            
-                            {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </td>
+                    <td>{{ huerto.manzana }}</td>
+                    <td>{{ huerto.lote }}</td>
+                    <td>{{ huerto.socio_poseedor_actual.dni }}</td>
+                    <td>{{ huerto.socio_poseedor_actual.apellidos }}, {{ huerto.socio_poseedor_actual.nombres }}</td>                                                                                
+                    <td>{{ huerto.tipo_enlace_socio }}</td>                    
                     <td class="aling-center"> 
                         <a href="{% url 'detalles_huertos' pk=huerto.id %}">
                             <svg

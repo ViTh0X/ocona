@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 from app_bienes_inmueble.models import Inmuebles
+from app_transferencias.models import Transferencias
 from .models import *
 from django.urls import reverse
 from .forms import *
@@ -30,10 +31,17 @@ def filtrar_socios_nombre(request):
     return render(request,'app_socios/socios_filtrados.html',{'socios':socios})
     
 
+def filtrar_socios_dni(request):
+    pista_dni = request.GET.get('dni','').strip()
+    socios = Socios.objects.filter(dni__icontains=pista_dni)
+    return render(request,'app_socios/socios_filtrados.html',{'socios':socios})
+
+    
+
 def ver_detalles_socio(request,pk):
     socio = Socios.objects.get(pk=pk)
-    huertos_socio = Inmuebles.objects.filter(tipo=1,socio_relacionado=socio)
-    parcelas_socio = Inmuebles.objects.filter(tipo=2,socio_relacionado=socio)
+    huertos_socio = Inmuebles.objects.filter(tipo=1,socio_poseedor_actual=socio)
+    parcelas_socio = Inmuebles.objects.filter(tipo=2,socio_poseedor_actual=socio)
     codigos_asociados = CodigosAsociadosSocio.objects.filter(
         socio_asociado=pk
     ).annotate(
@@ -45,8 +53,8 @@ def ver_detalles_socio(request,pk):
 
 def editar_socio(request,pk):
     socio = Socios.objects.get(pk=pk)
-    huertos_socio = Inmuebles.objects.filter(tipo=1,socio_relacionado=socio)
-    parcelas_socio = Inmuebles.objects.filter(tipo=2,socio_relacionado=socio)
+    huertos_socio = Inmuebles.objects.filter(tipo=1,socio_poseedor_actual=socio)
+    parcelas_socio = Inmuebles.objects.filter(tipo=2,socio_poseedor_actual=socio)
     codigos_asociados = CodigosAsociadosSocio.objects.filter(
         socio_asociado=pk
     ).annotate(
@@ -96,14 +104,17 @@ def seleccionar_no_socio_familiar(request):
         nombre_familiar = request.POST.get('nombre_familiar')
         es_socio_txt = request.POST.get('es_socio_texto')
         dni = request.POST.get('dni_familiar')
-        fecha_nacimiento = request.POST.get('fecha_nacimiento_familiar')        
-        try:
-            fecha_nacimiento = datetime.strptime(fecha_nacimiento, '%Y-%m-%d')
-        except (ValueError, TypeError):
-            fecha_nacimiento = fecha_nacimiento        
-        socio_repetido = PersonasRelacionadasSocio.objects.get(dni=dni)
-        if socio_repetido:
-            return HttpResponse("Error: Esta persona ya esta agregada como familiar")
+        fecha_nacimiento = request.POST.get('fecha_nacimiento_familiar')
+        if fecha_nacimiento:        
+            try:
+                fecha_nacimiento = datetime.strptime(fecha_nacimiento, '%Y-%m-%d')
+            except (ValueError, TypeError):
+                fecha_nacimiento = fecha_nacimiento
+        else:
+            fecha_nacimiento=None
+        #socio_repetido = PersonasRelacionadasSocio.objects.filter(dni=dni).first()
+        #if socio_repetido:
+        #    return HttpResponse("Error: Esta persona ya esta agregada como familiar")
         try:
             tipo_f = TipoFamiliar.objects.get(pk=int(tipo_id))
             
@@ -149,9 +160,9 @@ def seleccionar_socio_familiar(request,pk):
     if request.method == 'POST':
         tipo_id = request.POST.get('tipo_familiar')
         es_socio_txt = request.POST.get('es_socio_texto')
-        socio_repetido = PersonasRelacionadasSocio.objects.get(dni=familiar_socio.dni)
-        if socio_repetido:
-            return HttpResponse("Error: Esta persona ya esta agregada como familiar")
+        #socio_repetido = PersonasRelacionadasSocio.objects.get(dni=familiar_socio.dni)
+        #if socio_repetido:
+        #    return HttpResponse("Error: Esta persona ya esta agregada como familiar")
         try:
             tipo_f = TipoFamiliar.objects.get(pk=int(tipo_id))
             
@@ -192,3 +203,12 @@ def agregar_socio(request):
     else:
         form = SocioFormulario()        
     return render(request,'app_socios/form_agregar_socio.html',{'form':form})
+
+
+def transferencias_socio(request,pk):
+    socio = Socios.objects.get(pk=pk)
+    transferencias_como_transferentes = Transferencias.objects.filter(socio_transferente=socio)
+    transferencias_como_transferido = Transferencias.objects.filter(socio_transferido=socio)
+    transferencias = transferencias_como_transferentes|transferencias_como_transferido
+    transferencias =transferencias.order_by('-fecha_transferencia')
+    return render(request,'app_socios/transferencias_socio.html',{'socio':socio,'transferencias':transferencias})

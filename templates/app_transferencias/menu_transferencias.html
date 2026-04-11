@@ -1,0 +1,128 @@
+{% extends "../layout_irrigacion_ocoña.html" %}
+{% block titulo %}Socios{% endblock  %}
+{% block contenido %}
+<h1 class="no-margin">Listado Transferencias</h1>
+<div class="contenedor_principal_informacion">
+    <div class="opciones_principal">
+        <div class="buscador">
+            <div class="estilo_buscador">
+                <label for="pista_nombre">Buscar por Nombre:</label>
+                <input type="text" placeholder="INGRESE NOMBRE" id="pista_nombre" name="nombre" >
+            </div>            
+            <button hx-get="{% url 'filtrar_socios_nombre' %}" 
+            hx-target="#listado_socios" 
+            hx-include="#pista_nombre"
+            hx-indicator="#loading-spinner">
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#047670"
+                stroke-width="2.25"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                >
+                <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                <path d="M21 21l-6 -6" />
+                </svg>
+            </button>
+        </div>
+        <a class="botones_enlaces_add"
+            href="{% url 'agregar_transferencias' %}">Agregar Transferencia</a>     
+        <div class="botones_enlaces">
+            <!--<a href="">+ Agregar Socio</a>-->
+            <a href="{% url 'home_irrigacion_ocoña' %}">
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="50"
+                height="50"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#02264d"
+                stroke-width="2.25"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                >
+                <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
+                <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+                <path d="M10 12h4v4h-4z" />
+                </svg>
+            </a>
+        </div>
+    </div>   
+    <div id="listado_socios">
+        <table class="tabla_contenido">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Folio</th>
+                    <th>CH-MZ</th>
+                    <th>CH-L</th>
+                    <th>P-MZ</th>
+                    <th>P-L</th>
+                    <th>Transferente</th>                    
+                    <th>Transferido</th>                    
+                    <th>Fecha</th>
+                    <th>Observaciones</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transferencia in transferencias %}                
+                <tr>
+                    <td>{{ transferencia.id }}</td>
+                    <td>{{ transferencia.codigo_documento }}</td>                    
+                    <td>{{ transferencia.inmueble_huerto.manzana }}</td>
+                    <td>{{ transferencia.inmueble_huerto.lote }}</td>
+                    <td>{{ transferencia.inmueble_parcela.manzana }}</td>
+                    <td>{{ transferencia.inmueble_parcela.lote }}</td>
+                    <td>{{ transferencia.socio_transferente.apellidos }}, {{transferencia.socio_transferente.nombres }}</td>
+                    <td>{{ transferencia.socio_transferido.apellidos }}, {{transferencia.socio_transferido.nombres }}</td>
+                    <td>{{ transferencia.fecha_transferencia|date:"Y-m-d" }}</td>
+                    <td>{{ transferencia.observaciones|default:"Sin Observaciones" }}</td>                    
+                    <!--<td class="aling-center">
+                        <a href="{% url 'ver_detalles_socio' pk=transferencia.socio_transferente.id %}">
+                            <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="32"
+                            height="32"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#a36852"
+                            stroke-width="2.25"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            >
+                            <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                            <path d="M12 18c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                            <path d="M16 19h6" />
+                            <path d="M19 16v6" />
+                            </svg>
+                        </a>
+                    </td>-->
+                    <td>
+                        <a href="{%url 'editar_transferencia' pk=transferencia.id %}"><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="32"
+                        height="32"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#01b21e"
+                        stroke-width="2.25"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        >
+                        <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+                        <path d="M13.5 6.5l4 4" />
+                        </svg></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div> 
+</div>
+{% endblock  %}

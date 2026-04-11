@@ -1,0 +1,17 @@
+<div class="alerta-exito">✅ Huerto encontrado con éxito
+    <input type="hidden" name="h_validado" value="huerto_validado">
+</div>
+<label class="texto_negrita" for="">Huertos:</label>
+<div class="">
+    <label for="">MZ:</label>
+    <input id='manzana_huerto' name='manzana_h' value="{{ inmueble.manzana }}" placeholder='Ejm:C'>                        
+    <label for="">Lote:</label>
+    <input id='lote_huerto' name='lote_h' value="{{ inmueble.lote }}" placeholder='Ejm:10'>                                            
+    <button hx-get="{% url 'buscar_huertos' %}" 
+        hx-target="#contenedor-huerto" 
+        hx-include="#lote_huerto,#manzana_huerto"
+        hx-swap="innerHTML"                             
+        type="button" class="botones">
+    + Buscar-Validar
+    </button>                                            
+</div>

@@ -1,0 +1,17 @@
+<div class="alerta-exito">✅ Parcela encontrada con éxito
+    <input type="hidden" name="p_validada" value="parcela_validada">
+</div>
+<label class="texto_negrita" for="">Parcelas:</label>
+<div class="">
+    <label for="">MZ:</label>
+    <input id='manzana_parcela' name='manzana_p' value="{{ inmueble.manzana }}" placeholder='Ejm:C'>                        
+    <label for="">Lote:</label>
+    <input id='lote_parcela' name='lote_p' value="{{ inmueble.lote }}" placeholder='Ejm:10'>                                                
+    <button hx-get="{% url 'buscar_parcelas' %}" 
+        hx-target="#contenedor-parcela"
+        hx-include="#lote_parcela,#manzana_parcela" 
+        hx-swap="innerHTML"                             
+        type="button" class="botones">
+    + Buscar-Validar
+    </button>                                            
+</div>           

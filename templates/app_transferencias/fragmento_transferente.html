@@ -1,0 +1,23 @@
+<div id="contenedor-transferente" class="transaccion">    
+    <div class="">
+        <label for="">DNI:</label>
+        <input id='dni_transferente' name='dni_transferente' placeholder='Ejm:73206012'>
+        <label for="">Apellidos:</label>
+        <input id='apellidos_transferente' name='apellidos_transferente' value="{{persona.apellidos }}" placeholder='Ejm:QUISPE'>
+        <label for="">Nombres:</label>
+        <input id='nombres_transferente' name='nombres_transferente' value="{{persona.nombres }}" placeholder='Ejm:LEONARD'>                                            
+        <button hx-get="{% url 'mas_transferentes' %}" 
+            hx-target="#contenedor-transferente"                             
+            hx-swap="beforeend"                             
+            type="button" class="botones">
+        + Añadir Familiar
+        </button>
+        <button type="button" 
+            onclick="this.closest('.transaccion').remove()"
+            class="botones" 
+            style="background-color: #ff4d4d; color: white; flex: 1;">
+            ✕ Borrar
+        </button>                                            
+    </div>                        
+</div>
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>
