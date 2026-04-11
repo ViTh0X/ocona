@@ -7,7 +7,7 @@
             <th>Sexo</th>
             <th>Domicilio</th>
             <th>EstadoCivil</th>
-            <th>Ingreso</th>                    
+            <th>Transferencias</th>                    
             <th>Detalles</th>
             <th></th>
         </tr>
@@ -21,7 +21,7 @@
             <td>{{ socio.sexo|default:"No Ingresado"}}</td>
             <td>{{ socio.domicilio }}</td>
             <td>{{ socio.estado_civil|default:"No ingresado" }}</td>
-            <td>{{ socio.fecha_ingreso|default:"No ingresado"}}</td>                    
+            <td><a class="" href="{% url 'transferencias_socio' pk=socio.id %}">Ver</a></td>                    
             <td class="aling-center"> 
                 <a href="{% url 'ver_detalles_socio' pk=socio.id %}">
                     <svg
