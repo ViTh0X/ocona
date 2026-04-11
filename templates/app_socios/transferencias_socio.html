@@ -74,7 +74,8 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Folio</th>                                                                
+                                <th>Folio</th>
+                                <th>Tipo</th>                                                                
                                 <th>CH-MZ</th>
                                 <th>CH-Lote</th>
                                 <th>P-MZ</th>
@@ -90,7 +91,8 @@
                             {% for transferencia_1 in transferencias %}
                             <tr> 
                                 <td>{{ transferencia_1.id }}</td>
-                                <td>{{ transferencia_1.codigo_documento }}</td>                                                                
+                                <td>{{ transferencia_1.codigo_documento }}</td>
+                                <td>{{ transferencia_1.categoria_transferencia }}</td>                                                                
                                 <td>{{ transferencia_1.inmueble_huerto.manzana }}</td>
                                 <td>{{ transferencia_1.inmueble_huerto.lote }}</td>
                                 <td>{{ transferencia_1.inmueble_parcela.manzana }}</td>
