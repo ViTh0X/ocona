@@ -299,6 +299,9 @@ h1{
 .tabla_contenido tbody{
     font-size: 1.4rem;    
 }
+.tabla_contenido tbody tr:hover{
+    background-color: #FFD600;   
+}
 .tabla_contenido tbody td{
     border-bottom: 0.2rem solid var(--oscuro);    
 }
