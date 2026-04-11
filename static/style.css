@@ -306,6 +306,9 @@ h1{
     border-bottom: 0.2rem solid var(--oscuro);
     text-align: center;    
 }
+.fuente-pequeña{
+    font-size: 1.4rem;
+}
 
 .tabla_pequeña tbody td{
     border-bottom: 0.2rem solid var(--oscuro);    

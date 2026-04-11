@@ -80,7 +80,7 @@
                     <td>{{ transferencia.inmueble_parcela.lote }}</td>
                     <td>{{ transferencia.socio_transferente.apellidos }}, {{transferencia.socio_transferente.nombres }}</td>
                     <td>{{ transferencia.socio_transferido.apellidos }}, {{transferencia.socio_transferido.nombres }}</td>
-                    <td>{{ transferencia.fecha_transferencia|date:"Y-m-d" }}</td>
+                    <td class="fuente-pequeña">{{ transferencia.fecha_transferencia|date:"Y-m-d" }}</td>
                     <td>{{ transferencia.observaciones|default:"Sin Observaciones" }}</td>                    
                     <!--<td class="aling-center">
                         <a href="{% url 'ver_detalles_socio' pk=transferencia.socio_transferente.id %}">
