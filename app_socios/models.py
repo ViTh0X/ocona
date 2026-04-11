@@ -1,9 +1,3 @@
-from encodings.punycode import T
-from pyexpat import model
-import re
-from tkinter.messagebox import RETRY
-from turtle import mode
-
 from django.db import models
 
 # Create your models here.
