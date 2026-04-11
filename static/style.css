@@ -297,13 +297,14 @@ h1{
     padding: 1rem;
 }
 .tabla_contenido tbody{
-    font-size: 1.4rem;    
+    font-size: 1.6rem;    
 }
 .tabla_contenido tbody tr:hover{
     background-color: #FFD600;   
 }
 .tabla_contenido tbody td{
-    border-bottom: 0.2rem solid var(--oscuro);    
+    border-bottom: 0.2rem solid var(--oscuro);
+    text-align: center;    
 }
 
 .tabla_pequeña tbody td{
