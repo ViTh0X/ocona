@@ -284,8 +284,17 @@ h1{
     padding-top: 1rem;
     background-color: var(--grisOscuro);
     color: var(--blanco);
-    position: sticky;
     z-index: 10;
+}
+
+.tabla_contenido thead th{
+    position: sticky;
+    top: 0; /* Esto es vital: fija el encabezado al borde superior */
+    z-index: 10;
+    background-color: var(--grisOscuro); /* El color debe ir en el TH */
+    color: var(--blanco);
+    font-size: 2rem;
+    padding: 1rem;
 }
 .tabla_contenido tbody{
     font-size: 1.4rem;    
