@@ -99,8 +99,6 @@
                             {% for transferencia in transferencias %}
                             <tr>                            
                                 <td>{{ transferencia.codigo_documento }}</td>
-                                <td>{{ transferencia.inmueble_huerto.manzana }}</td>
-                                <td>{{ transferencia.inmueble_huerto.lote }}</td>
                                 <td>{{ transferencia.socio_transferente }}</td>
                                 <td>{{ transferencia.socio_transferido }}</td>
                                 <td>{{ transferencia.fecha_transferencia|date:"Y-m-d" }}</td>                            
