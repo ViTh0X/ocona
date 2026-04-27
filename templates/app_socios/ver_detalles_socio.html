@@ -157,7 +157,7 @@
             </div> 
             <div class="informacion_labels mostrar_info_estilo">
                 <div class="mostrar_info_estilo">
-                    <label class="texto_negrita" for="">Correo:</label>
+                    <label class="texto_negrita" for="">CodigosAsociados:</label>
                     <label for="">{{ socio.correo|default:"No Ingresado" }}</label>     
                 </div> 
                 <div class="mostrar_info_estilo">
@@ -255,7 +255,7 @@
                 </table>
             </div>            
             </div>                        
-            <div class="tabla_resumen">
+            <!--<div class="tabla_resumen">
                 <h2 class="no-margin">Historial Codigos Socio:</h2>
                 <hr class="no-margin">
                 <table class="tabla_pequeña">                    
@@ -267,7 +267,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
-            </div>
+            </div>-->
             <div>
                 <a class="botones_enlaces_add2"
                 href="{% url 'transferencias_socio' pk=socio.id %}">Ver Transferencias</a>
