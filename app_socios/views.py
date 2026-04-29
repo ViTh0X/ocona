@@ -15,7 +15,7 @@ from django.db.models.functions import Cast
 from datetime import datetime
 
 def socios(request):
-    socios = Socios.objects.all()[:15]    
+    socios = Socios.objects.all()#[:15]    
     cantidad_socios = Socios.objects.all().count()
     return render(request,'app_socios/menu_socios.html',{'socios':socios,'cantidad_socios':cantidad_socios})
 

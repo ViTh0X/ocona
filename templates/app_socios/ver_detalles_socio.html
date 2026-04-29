@@ -67,10 +67,10 @@
                     <label for="">EstadoActualSocio:</label>
                     <label for="">{{ socio.estado_actual_socio }}</label>
                 </div>
-                <div class="mostrar_info_estilo">
+                <!--<div class="mostrar_info_estilo">
                     <label for="">N°Folio:</label>
                     <label for="">{{ socio.codigo_folio }}</label>
-                </div>
+                </div>-->
                 <div class="mostrar_info_estilo">
                     <label class="texto_negrita" for="">ID:</label>
                     <label for="" id="id_socio_unico" >{{ socio.id }}</label>                    
@@ -171,16 +171,16 @@
                     <label for="">{{ socio.fecha_ingreso|default:"No Ingresado" }}</label>
                 </div>                               
                 <div class="mostrar_info_estilo">
-                    <label class="texto_negrita" for="">☎Tel. Adicional:</label>
+                    <label class="texto_negrita" for="">☎Tel. Emergencia:</label>
                     <label for="">{{ socio.numero_contacto_adicional|default:"No Ingresado" }}</label>
                 </div>                                
             </div>
-            <div class="informacion_labels mostrar_info_estilo">                
+            <!--<div class="informacion_labels mostrar_info_estilo">                
                 <div class="mostrar_info_estilo">
                     <label class="texto_negrita" for="">Activo Hasta:</label>
                     <label for="">{{ socio.activo_hasta|default:"No Ingresado" }}</label>
                 </div>                                                           
-            </div>                 
+            </div>-->                 
             <a class="botones_enlaces_add"
             href="{% url 'buscar_socio' pk=socio.id %}">Agregar Familiares</a>
         </div>        

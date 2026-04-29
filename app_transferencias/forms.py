@@ -12,6 +12,12 @@ class TransferenciaFormulario(forms.ModelForm):
                 attrs={
                     'type':'date'
                 }
+            ),
+            'observaciones':forms.Textarea(
+                attrs={
+                    'rows': 5,
+                    'placeholder': 'Añada alguna observacion...'
+                }
             )
         }
     def __init__(self, *args, **kwargs):
