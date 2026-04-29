@@ -68,6 +68,8 @@
                 <div class="editar_nombre_socios">
                     <!--<label class="texto_negrita" for="">N°Folio:</label>
                     {{ form.codigo_folio }}-->
+                     <label class="texto_negrita" for="">EstadoSocio:</label>
+                    {{ form.estado_actual_socio }}
                     <label class="texto_negrita" for="">TipoSocio:</label>
                     {{ form.tipo_socio }}
                     <label class="texto_negrita" for="">DNI:</label>
@@ -128,11 +130,11 @@
                 <label class="texto_negrita" for="">Fecha Ingreso:</label>
                 {{ form.fecha_ingreso }}                 
             </div>
-            <div class="informacion_labels_select">
+            <!--<div class="informacion_labels_select">
                 <label class="texto_negrita" for="">EstadoSocio:</label>
                 {{ form.estado_actual_socio }}
             </div>    
-            <!--<div class="informacion_labels_input">
+            <div class="informacion_labels_input">
                 <label class="texto_negrita" for="">Activo Hasta: </label>
                 {{ form.activo_hasta }}
             </div>-->
