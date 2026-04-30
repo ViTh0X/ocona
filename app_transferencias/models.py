@@ -38,7 +38,7 @@ class Transferencias(models.Model):
     socio_transferente = models.ForeignKey(Socios,on_delete=models.CASCADE,related_name='transferente')
     socio_transferido = models.ForeignKey(Socios,on_delete=models.CASCADE,related_name='transferido')
     fecha_transferencia = models.DateField()
-    observaciones = models.CharField(max_length=180,blank=True,null=True)
+    observaciones = models.CharField(max_length=300,blank=True,null=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)    
     
     class Meta:

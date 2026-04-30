@@ -15,8 +15,9 @@ class TransferenciaFormulario(forms.ModelForm):
             ),
             'observaciones':forms.Textarea(
                 attrs={
-                    'rows': 5,
-                    'placeholder': 'Añada alguna observacion...'
+                    'rows': 3,
+                    'placeholder': 'Añada alguna observacion...',
+                    'class': 'informacion_labels_input ancho_65rem'
                 }
             )
         }
