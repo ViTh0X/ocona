@@ -73,6 +73,7 @@
                     <table class="tabla_pequeña">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>ID</th>
                                 <th>Folio</th>
                                 <th>Tipo</th>                                                                
@@ -91,7 +92,7 @@
                             {% for transferencia_1 in transferencias %}
                             <tr>
                                 <td>
-                                    <a href="{% url 'editar_transferencia' pk=transferencia_1.id %}"><svg
+                                    <a href="{% url 'editar_transferencia' pk=transferencia_1.id socio_id=socio.id %}"><svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="32"
                                     height="32"

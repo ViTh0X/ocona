@@ -332,20 +332,37 @@ def mas_transferentes(request):
 def mas_transferidos(request):
     return render(request,'app_transferencias/fragmento_transferido.html')
 
-def editar_transferencia(request,pk):
-    transferencia = Transferencias.objects.get(pk=pk)
-    if request.method == 'POST':
-        print("Entro al POST")
-        form = TransferenciaFormulario(request.POST,instance=transferencia)
-        if form.is_valid():
-            print("Es valido")
-            form.save()
-            print("Formulario se guardo")
-            return redirect('menu_transferencias')
+def editar_transferencia(request,pk,socio_id=None):
+    if socio_id != None:
+        socio = Socios.objects.get(pk=socio_id)
+        transferencia = Transferencias.objects.get(pk=pk)
+        if request.method == 'POST':
+            print("Entro al POST")
+            form = TransferenciaFormulario(request.POST,instance=transferencia)
+            if form.is_valid():
+                print("Es valido")
+                form.save()
+                print("Formulario se guardo")
+                return redirect('transferencias_socio',pk=socio.id)
+            else:
+                print(f"No es valido{form.errors}")
         else:
-            print(f"No es valido{form.errors}")
+            form = TransferenciaFormulario(instance=transferencia)
+        return render(request,'app_transferencias/form_editar_transferencia.html',{'transferencia':transferencia,'form':form})
     else:
-        form = TransferenciaFormulario(instance=transferencia)
-    return render(request,'app_transferencias/form_editar_transferencia.html',{'transferencia':transferencia,'form':form})
+        transferencia = Transferencias.objects.get(pk=pk)
+        if request.method == 'POST':
+            print("Entro al POST")
+            form = TransferenciaFormulario(request.POST,instance=transferencia)
+            if form.is_valid():
+                print("Es valido")
+                form.save()
+                print("Formulario se guardo")
+                return redirect('menu_transferencias')
+            else:
+                print(f"No es valido{form.errors}")
+        else:
+            form = TransferenciaFormulario(instance=transferencia)
+        return render(request,'app_transferencias/form_editar_transferencia.html',{'transferencia':transferencia,'form':form})
         
  
