@@ -10,7 +10,7 @@ from .forms import *
 
 def menu_bienes_inmueble_huertos(request):
     #tipo_huerto = TipoInmueble.objects.get(pk=1)    
-    huertos = Inmuebles.objects.filter(tipo=1)[:15]
+    huertos = Inmuebles.objects.filter(tipo=1)#[:15]
     cantidad_huertos = Inmuebles.objects.filter(tipo=1).count()
     personas_relacionadas_huerto = PersonasRelacionadasSocio.objects.all()
     return render(request,'app_bienes_inmueble/menu_bienes_huertos.html',{'huertos':huertos,'personas_relacionadas_huerto':personas_relacionadas_huerto,'cantidad_huertos':cantidad_huertos})    
@@ -57,7 +57,7 @@ def agregar_huerto(request):
 
 def menu_bienes_inmueble_parcelas(request):
     #tipo_huerto = TipoInmueble.objects.get(pk=1)    
-    parcelas = Inmuebles.objects.filter(tipo=2)[:15]
+    parcelas = Inmuebles.objects.filter(tipo=2)#[:15]
     cantidad_parcelas = Inmuebles.objects.filter(tipo=2).count()
     personas_relacionadas_huerto = PersonasRelacionadasSocio.objects.all()
     return render(request,'app_bienes_inmueble/menu_bienes_parcelas.html',{'parcelas':parcelas,'personas_relacionadas_huerto':personas_relacionadas_huerto,'cantidad_parcelas':cantidad_parcelas})    

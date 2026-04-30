@@ -72,8 +72,7 @@
                 <div class="tabla_resumen_transac">
                     <table class="tabla_pequeña">
                         <thead>
-                            <tr>
-                                <th></th>
+                            <tr>                                
                                 <th>ID</th>
                                 <th>Folio</th>
                                 <th>Tipo</th>                                                                
@@ -86,11 +85,24 @@
                                 <th>Fecha</th>
                                 <th>Codigo</th>
                                 <th>Observaciones</th>                                
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for transferencia_1 in transferencias %}
-                            <tr>
+                            <tr>                                
+                                <td>{{ transferencia_1.id }}</td>
+                                <td>{{ transferencia_1.codigo_documento }}</td>
+                                <td>{{ transferencia_1.categoria_transferencia }}</td>                                                                
+                                <td>{{ transferencia_1.inmueble_huerto.manzana }}</td>
+                                <td>{{ transferencia_1.inmueble_huerto.lote }}</td>
+                                <td>{{ transferencia_1.inmueble_parcela.manzana }}</td>
+                                <td>{{ transferencia_1.inmueble_parcela.lote }}</td>
+                                <td>{{ transferencia_1.socio_transferente }}</td>
+                                <td>{{ transferencia_1.socio_transferido }}</td>
+                                <td>{{ transferencia_1.fecha_transferencia|date:"Y-m-d" }}</td>                            
+                                <td>{{ transferencia_1.codigo_relacionado_transferencia }}</td>
+                                <td>{{ transferencia_1.observaciones }}</td>
                                 <td>
                                     <a href="{% url 'editar_transferencia' pk=transferencia_1.id socio_id=socio.id %}"><svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -107,18 +119,6 @@
                                     <path d="M13.5 6.5l4 4" />
                                     </svg></a>
                                 </td>
-                                <td>{{ transferencia_1.id }}</td>
-                                <td>{{ transferencia_1.codigo_documento }}</td>
-                                <td>{{ transferencia_1.categoria_transferencia }}</td>                                                                
-                                <td>{{ transferencia_1.inmueble_huerto.manzana }}</td>
-                                <td>{{ transferencia_1.inmueble_huerto.lote }}</td>
-                                <td>{{ transferencia_1.inmueble_parcela.manzana }}</td>
-                                <td>{{ transferencia_1.inmueble_parcela.lote }}</td>
-                                <td>{{ transferencia_1.socio_transferente }}</td>
-                                <td>{{ transferencia_1.socio_transferido }}</td>
-                                <td>{{ transferencia_1.fecha_transferencia|date:"Y-m-d" }}</td>                            
-                                <td>{{ transferencia_1.codigo_relacionado_transferencia }}</td>
-                                <td>{{ transferencia_1.observaciones }}</td>
                             </tr>                            
                             {% endfor %}                            
                         </tbody>
