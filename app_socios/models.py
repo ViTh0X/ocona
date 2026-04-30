@@ -80,6 +80,7 @@ class Socios(models.Model):
     
     class Meta:
         db_table = 'socios'
+        ordering = ['apellidos','nombres']
         
     def __str__(self):
         return f"{self.apellidos}, {self.nombres}"
