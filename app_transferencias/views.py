@@ -333,8 +333,8 @@ def mas_transferidos(request):
     return render(request,'app_transferencias/fragmento_transferido.html')
 
 def editar_transferencia(request,pk,socio_id):
-    if socio_id != -1:
-        socio = Socios.objects.get(pk=socio_id)
+    if socio_id != "-1":
+        socio = Socios.objects.get(pk=int(socio_id))
         transferencia = Transferencias.objects.get(pk=pk)
         if request.method == 'POST':
             print("Entro al POST")
