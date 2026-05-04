@@ -16,8 +16,10 @@ def agregar_transferencias(request):
     return render(request,'app_transferencias/form_agregar_transferencia_opciones.html')
 
 
-def agregar_transferencias_con_inmueble(request):    
+def agregar_transferencias_con_inmueble(request):
+    tipo_transferencias = CategoriaTransferencia.objects.all()    
     if request.method == 'POST':
+        categoria = request.POST.get('categoria')
         huerto_error = request.POST.get('h_error')
         parcela_error = request.POST.get('p_error')
         huerto_validado = request.POST.get('h_validado')
@@ -86,10 +88,15 @@ def agregar_transferencias_con_inmueble(request):
             fecha_transferencia = datetime.strptime(fecha_trans, '%Y-%m-%d')
         else:
             messages.error(request, "La fecha de transferencia es obligatoria.")
+        if categoria:
+            categoria_escojida = CategoriaTransferencia.objects.get(pk=int(categoria))
+        else:
+            messages.error(request, "La categoria es obligatoria.")
         if huerto and parcela:                   
             nueva_transferencia = Transferencias.objects.create(
                 codigo_documento = numero_folio,
                 tipo_transferencia = transferencia_identificada,
+                categoria_transferencia = categoria_escojida,
                 codigo_relacionado_transferencia = codigo_asociado_transferencia,
                 inmueble_huerto = huerto,
                 inmueble_parcela = parcela,
@@ -116,6 +123,7 @@ def agregar_transferencias_con_inmueble(request):
             nueva_transferencia = Transferencias.objects.create(
                 codigo_documento = numero_folio,
                 tipo_transferencia = transferencia_identificada,
+                categoria_transferencia = categoria_escojida,
                 codigo_relacionado_transferencia = codigo_asociado_transferencia,
                 inmueble_huerto = huerto,
                 socio_transferente = transferente,
@@ -141,6 +149,7 @@ def agregar_transferencias_con_inmueble(request):
             nueva_transferencia = Transferencias.objects.create(
                 codigo_documento = numero_folio,
                 tipo_transferencia = transferencia_identificada,
+                categoria_transferencia = categoria_escojida,
                 codigo_relacionado_transferencia = codigo_asociado_transferencia,
                 inmueble_parcela = parcela,
                 socio_transferente = transferente,
@@ -186,11 +195,13 @@ def agregar_transferencias_con_inmueble(request):
                 dni = conyugue_transferido.dni
             )
         return redirect('menu_transferencias')
-    return render(request,'app_transferencias/form_agregar_transferencia_con_inmueble.html')
+    return render(request,'app_transferencias/form_agregar_transferencia_con_inmueble.html',{'tipo_transferencias':tipo_transferencias})
 
 
-def agregar_transferencias_sin_inmueble(request):    
+def agregar_transferencias_sin_inmueble(request):
+    tipo_transferencias = CategoriaTransferencia.objects.all()        
     if request.method == 'POST':
+        categoria = request.POST.get('categoria')
         codigo_asociado_transferencia = request.POST.get('codigo_transferencia','')
         numero_folio = request.POST.get('numero_folio') 
         fecha_trans = request.POST.get('fecha_transferencia')
@@ -240,6 +251,10 @@ def agregar_transferencias_sin_inmueble(request):
         transferente =  Socios.objects.get(dni=dni_transferente.strip())
         transferido = Socios.objects.get(dni=dni_transferido.strip())
         transferencia_no_identificada = TipoTransferencias.objects.get(pk=2)
+        if categoria:
+            categoria_escojida = CategoriaTransferencia.objects.get(pk=int(categoria))
+        else:
+            messages.error(request, "La categoria es obligatoria.")
         if fecha_trans:
             fecha_transferencia = datetime.strptime(fecha_trans, '%Y-%m-%d')
         else:
@@ -247,6 +262,7 @@ def agregar_transferencias_sin_inmueble(request):
         nueva_transferencia = Transferencias.objects.create(
             codigo_documento = numero_folio,
             tipo_transferencia = transferencia_no_identificada,
+            categoria_transferencia = categoria_escojida,
             codigo_relacionado_transferencia = codigo_asociado_transferencia,
             socio_transferente = transferente,
             socio_transferido = transferido,
@@ -292,7 +308,7 @@ def agregar_transferencias_sin_inmueble(request):
                 dni = conyugue_transferido.dni
             )
         return redirect('menu_transferencias')
-    return render(request,'app_transferencias/form_agregar_transferencia_sin_inmueble.html')
+    return render(request,'app_transferencias/form_agregar_transferencia_sin_inmueble.html',{'tipo_transferencias':tipo_transferencias})
 
 def buscar_huertos(request):      
     data_manzana = request.GET.get('manzana_h').upper()

@@ -74,10 +74,18 @@
                 <label class="texto_negrita" for="">Numero Folio:</label>
                 <input type="number" id='numero_folio' name='numero_folio'>
                 <label class="texto_negrita" for="">Fecha Transferencia:</label>
-                <input type="date" id='fecha_transferencia' name='fecha_transferencia'>
-                <label class="texto_negrita" for="">Codigo Transferencia:</label>
+                <input type="date" id='fecha_transferencia' name='fecha_transferencia'>                
+            </div>
+            <div class="informacion_labels_input informacion_labels_select">                                
+                <label class="texto_negrita" for="">Codigo de Socio:</label>
                 <input type="number" id='codigo_transferencia' name='codigo_transferencia'>
-            </div>          
+                <label class="texto_negrita" for="">Transferencia Por:</label>
+                <select name="categoria" id="categoria_transferencia">
+                    {% for categoria in tipo_transferencias %}
+                    <option value="{{ categoria.id }}">{{ categoria.denominacion }}</option>
+                    {% endfor %}
+                </select>
+            </div>           
             <div class="informacion_labels_input informacion_labels_select">
                 <div id="contenedor-transferente" class="">
                     <label class="texto_negrita" for="">Transferentes:</label>

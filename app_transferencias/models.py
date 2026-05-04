@@ -30,7 +30,7 @@ class CategoriaTransferencia(models.Model):
 class Transferencias(models.Model):
     id = models.AutoField(primary_key=True)
     codigo_documento = models.IntegerField()
-    tipo_transferencia = models.ForeignKey(TipoTransferencias,on_delete=models.CASCADE)
+    tipo_transferencia = models.ForeignKey(TipoTransferencias,on_delete=models.CASCADE,blank=True,null=True)
     categoria_transferencia = models.ForeignKey(CategoriaTransferencia,on_delete=models.CASCADE,blank=True,null=True)
     codigo_relacionado_transferencia =  models.CharField(max_length=10,blank=True,null=True)
     inmueble_huerto = models.ForeignKey(Inmuebles,on_delete=models.CASCADE,blank=True,null=True,related_name='transferencia_huerto')
