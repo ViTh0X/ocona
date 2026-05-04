@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        @page {
+            size: A4 landscape; /* Horizontal para que quepa la tabla */
+            margin: 1cm;
+        }
+        body { font-family: sans-serif; font-size: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { background-color: #002d4d; color: white; padding: 8px; border: 1px solid #333; }
+        td { padding: 6px; border: 1px solid #ccc; vertical-align: top; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .header { border-bottom: 2px solid #002d4d; padding-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Historial de Transferencias</h1>
+        <p>Socio: {{ socio_nombre }}</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Folio</th>
+                <th>Tipo</th>
+                <th>CH MZ/LT</th>
+                <th>P MZ/LT</th>
+                <th>Transferente</th>
+                <th>Transferido</th>
+                <th>Fecha</th>
+                <th>CodigoSocio</th>
+                <th>Observacion</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in transferencias %}
+            <tr>
+                <td>{{ t.id }}</td>
+                <td>{{ t.codigo_documento }}</td>
+                <td>{{ t.categoria_transferencia }}</td>
+                <td>{{ t.inmueble_huerto.manzana }}-{{ transferencia_1.inmueble_huerto.lote }}</td>
+                <td>{{ t.inmueble_parcela.manzana }}-{{ transferencia_1.inmueble_parcela.lote }}</td>
+                <td>{{ t.socio_transferente }}</td>
+                <td>{{ t.socio_transferido }}</td>
+                <td>{{ t.fecha_transferencia|date:"Y-m-d" }}</td>                            
+                <td>{{ t.codigo_relacionado_transferencia }}</td>
+                <td>{{ t.observaciones }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
