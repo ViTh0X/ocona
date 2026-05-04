@@ -13,4 +13,5 @@ urlpatterns = [
     path('seleccionar-socio-familiar/<int:pk>',views.seleccionar_socio_familiar,name='seleccionar_socio_familiar'),
     path('seleccionar-no-socio-familiar',views.seleccionar_no_socio_familiar,name='seleccionar_no_socio_familiar'),
     path('transferencias-socio/<int:pk>',views.transferencias_socio,name='transferencias_socio'),
+    path('exportar-transferencias-pdf/<int:pk>',views.exportar_transferencias_pdf,name='exportar_transferencias_pdf'),
 ]
