@@ -71,7 +71,7 @@ def filtrar_parcelas_nombres(request):
     pista_lote = request.GET.get('lote','').strip()
     #tipo_huerto = TipoInmueble.objects.get(pk=1)    
     parcelas = Inmuebles.objects.filter(tipo=2)
-    parcelas = parcelas.filter(manzana__icontains=pista_mz,lote__icontains=pista_lote)    
+    parcelas = parcelas.filter(manzana=pista_mz,lote__icontains=pista_lote)    
     return render(request,'app_bienes_inmueble/menu_bienes_parcelas_filtrado.html',{'parcelas':parcelas})
 
 def detalles_parcelas(request,pk):
