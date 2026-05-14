@@ -88,6 +88,8 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Folio</th>
+                                <th>Tipo</th>
                                 <th>Transferente</th>
                                 <th>Transferido</th>
                                 <th>FechaTransferencia</th>
@@ -98,7 +100,9 @@
                         <tbody>
                             {% for transferencia in transferencias %}
                             <tr>                            
+                                <td>{{ transferencia.id }}</td>                            
                                 <td>{{ transferencia.codigo_documento }}</td>
+                                <td>{{ transferencia.categoria_transferencia }}</td> 
                                 <td>{{ transferencia.socio_transferente }}</td>
                                 <td>{{ transferencia.socio_transferido }}</td>
                                 <td>{{ transferencia.fecha_transferencia|date:"Y-m-d" }}</td>                            

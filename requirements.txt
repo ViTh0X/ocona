@@ -1,7 +1,8 @@
 asgiref==3.11.1
-Django==6.0.3
+Django==5.2.13
 dotenv==0.9.9
 python-dotenv==1.2.2
 sqlparse==0.5.5
 tzdata==2025.3
 psycopg2==2.9.11
+weasyprint==68.1

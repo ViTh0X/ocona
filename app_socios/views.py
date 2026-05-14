@@ -1,3 +1,5 @@
+from unittest import result
+
 from django.shortcuts import redirect, render 
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
@@ -13,6 +15,11 @@ from django.db.models.functions import Cast
 # Create your views here.
 
 from datetime import datetime
+
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
+import tempfile
 
 def socios(request):
     socios = Socios.objects.all()#[:15]    
@@ -212,3 +219,16 @@ def transferencias_socio(request,pk):
     transferencias = transferencias_como_transferentes|transferencias_como_transferido
     transferencias =transferencias.order_by('-fecha_transferencia')
     return render(request,'app_socios/transferencias_socio.html',{'socio':socio,'transferencias':transferencias})
+
+def exportar_transferencias_pdf(request,pk):
+    socio = Socios.objects.get(pk=pk)
+    transferencias_como_transferentes = Transferencias.objects.filter(socio_transferente=socio)
+    transferencias_como_transferido = Transferencias.objects.filter(socio_transferido=socio)
+    transferencias = transferencias_como_transferentes|transferencias_como_transferido
+    transferencias =transferencias.order_by('-fecha_transferencia')
+    html_string = render_to_string('app_socios/transferencias_socios_pdf.html',{'socio':socio,'transferencias':transferencias})
+    html = HTML(string=html_string, base_url=request.build_absolute_uri())
+    result = html.write_pdf()
+    response = HttpResponse(result, content_type='application/pdf')
+    response['Content-Disposition'] = f'inline; filename="Transferencias_{socio.apellidos}_{socio.nombres}.pdf"'
+    return response
