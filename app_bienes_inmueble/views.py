@@ -96,7 +96,7 @@ def agregar_parcela(request):
             huerto = form.save(commit=False)
             huerto.tipo = tipo_huerto
             huerto.save()            
-            return redirect('detalles_huertos',pk=huerto.id)
+            return redirect('detalles_parcelas',pk=huerto.id)
     else:
         form = HuertoFormulario()
     return render(request,'app_bienes_inmueble/form_agregar_parcela.html',{'form':form})
