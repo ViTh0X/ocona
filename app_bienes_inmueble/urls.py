@@ -11,5 +11,6 @@ urlpatterns = [
     path('detalles-huertos/<int:pk>',views.detalles_huertos,name='detalles_huertos'),
     path('agregar-huerto',views.agregar_huerto,name='agregar_huerto'),    
     path('detalles-parcelas/<int:pk>',views.detalles_parcelas,name='detalles_parcelas'),
-    path('agregar-parcela',views.agregar_parcela,name='agregar_parcela'),    
+    path('agregar-parcela',views.agregar_parcela,name='agregar_parcela'),
+    path('imprimir-excel-parcelas',views.imprimir_excel_parcelas,name='imprimir_excel_parcelas'), 
 ]

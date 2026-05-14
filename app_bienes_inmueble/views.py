@@ -1,11 +1,14 @@
+from urllib import response
+
 from django.shortcuts import redirect, render
-from django.http import Http404
+from django.http import Http404, HttpResponse
 
 from app_transferencias.models import Transferencias
 from .models import *
 
 from .forms import *
 
+import pandas as pd
 # Create your views here.
 
 def menu_bienes_inmueble_huertos(request):
@@ -89,14 +92,25 @@ def editar_parcela(request,pk):
     return render(request,'app_bienes_inmueble/editar_parcela.html',{'form':form,'parcela':parcela})
 
 def agregar_parcela(request):
-    tipo_huerto =  TipoInmueble.objects.get(pk=2)
+    tipo_parcela =  TipoInmueble.objects.get(pk=2)
     if request.method == 'POST':
         form = HuertoFormulario(request.POST)
         if form.is_valid():
             huerto = form.save(commit=False)
-            huerto.tipo = tipo_huerto
+            huerto.tipo = tipo_parcela
             huerto.save()            
             return redirect('detalles_parcelas',pk=huerto.id)
     else:
         form = HuertoFormulario()
     return render(request,'app_bienes_inmueble/form_agregar_parcela.html',{'form':form})
+
+
+def imprimir_excel_parcelas(request):
+    tipo_parcela = TipoInmueble.objects.get(pk=2)
+    parcelas = Inmuebles.objects.filter(tipo = tipo_parcela)
+    data_df = parcelas.values('manzana','lote')
+    df = pd.DataFrame(list(data_df))
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = f'attachament; filename="Listado_Parcelas.xlsx"'
+    df.to_excel(response,index=True,sheet_name='Parcelas')
+    return response
